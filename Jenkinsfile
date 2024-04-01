@@ -1,6 +1,10 @@
 pipeline {
+  agent none
   stages {
     stage('Build') {
+      agent {
+        label 'build-server'
+      }
       steps {
         echo 'Building the application'
         //Define build steps here
@@ -8,6 +12,9 @@ pipeline {
       }
     }
     stage('Test') {
+      agent {
+        label 'build-server'
+      }
     steps {
       echo 'Running tests'
       //Define test steps here
