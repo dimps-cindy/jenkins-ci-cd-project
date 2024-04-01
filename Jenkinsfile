@@ -29,6 +29,5 @@ pipeline {
         sh "sudo systemctl daemon-reload"
         sh "~/apache-tomcat-7.0.94/bin/startup.sh"
       }
+    // No post actions defined
     }
-  }
-  
