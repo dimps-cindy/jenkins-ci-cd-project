@@ -13,7 +13,7 @@ pipeline {
       echo 'Running tests'
       //Define test steps here
       sh 'mvn test'
-      stash (name: 'JenkinsCI-CD', includes: "target/*war")
+      stash (name: 'Jenkins CI-CD', includes: "target/*war")
     }
     }
     stage('Deploy') {
@@ -23,7 +23,7 @@ pipeline {
       steps {
         echo 'Deploying the application'
         //Define deployment steps here
-        unstash 'JenkinsCI-CD'
+        unstash 'Jenkins CI-CD'
         sh "sudo rm -rf ~/apache*/webapp/*.war"
         sh "sudo mv target/*.war ~/apache*/webapps/"
         sh "sudo systemctl daemon-reload"
