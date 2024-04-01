@@ -1,14 +1,14 @@
 pipeline {
   agent none
-  strages {
+  stages {
     stage('Build') {
       steps {
         echo 'Building the application'
         //Define build steps here
-        sh '/opt/maven/bin/mvn clean package
+        sh '/opt/maven/bin/mvn clean package'
       }
     }
-    stage ('Test') {
+    stage('Test') {
     steps {
       echo 'Running tests'
       //Define test steps here
@@ -28,3 +28,4 @@ pipeline {
         sh "sudo mv target/*.war ~/apache*/webapps/"
         sh "sudo systemctl daemon-reload"
         sh "~/apache-tomcat-7.0.94/bin/startup.sh"
+      }
