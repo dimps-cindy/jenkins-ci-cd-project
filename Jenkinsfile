@@ -31,8 +31,5 @@ pipeline {
       }
     }
   }
-   // No post actions defined
-    }
-  }
 }
 
