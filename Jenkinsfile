@@ -40,7 +40,7 @@ pipeline {
         // Send email notification on completion
         emailext (
              subject: "Jenkins Build ${currentBuild.currentResult} Jenkins CI-CD"
-             body: 'Check console output at $BUILD_URL'
+             body: "Check console output at $BUILD_URL"
              to: "towehcorina@gmail.com"
              mimeType: 'text/html'
           )
