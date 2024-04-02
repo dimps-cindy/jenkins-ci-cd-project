@@ -35,11 +35,17 @@ pipeline {
         sh "sudo systemctl daemon-reload"
         sh "~/apache-tomcat-7.0.94/bin/startup.sh"
       }
+        }
+    }
     post {
-      always {
-        // Send email notification on completion
-        emailext body: "Check console output at $BUILD_URL to see results,",           
-        subject: "Jenkins Build ${currentBuild.currentResult} Jenkins CI-CD",
-        to: "towehcorina@gmail.com"
-        mimeType: 'text/html'
-      }
+        always {
+            // Send email notification on completion
+            emailext (
+                body: "Check console output at $BUILD_URL to see results,",           
+                subject: "Jenkins Build ${currentBuild.currentResult} Jenkins CI-CD",
+                to: "towehcorina@gmail.com",
+                mimeType: 'text/html'
+            )
+        }
+    }
+}
