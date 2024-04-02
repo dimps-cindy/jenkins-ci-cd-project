@@ -43,7 +43,7 @@ pipeline {
             emailext (
                 body: "Check console output at $BUILD_URL to see results,",           
                 subject: "Jenkins Build ${currentBuild.currentResult} Jenkins CI-CD",
-                to: "towehcorina@gmail.com",
+                to: "towehcorina@gmail.com, evinsonebiere@gmail.com", 
                 mimeType: 'text/html'
             )
         }
