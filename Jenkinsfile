@@ -33,7 +33,7 @@ pipeline {
         sh "sudo rm -rf ~/apache*/webapp/*.war"
         sh "sudo mv target/*.war ~/apache*/webapps/"
         sh "sudo systemctl daemon-reload"
-        sh "~/apache-tomcat-7.0.94/bin/startup.sh"
+        sh "sudo ~/apache-tomcat-7.0.94/bin/shutdown.sh && sudo ~/apache-tomcat-7.0.94/bin/startup.sh"
       }
         }
     }
