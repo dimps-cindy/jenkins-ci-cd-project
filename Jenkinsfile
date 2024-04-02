@@ -44,3 +44,4 @@ pipeline {
         mimeType: 'text/html'
       }
     }
+    }
