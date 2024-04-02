@@ -43,6 +43,3 @@ pipeline {
         to: "towehcorina@gmail.com"
         mimeType: 'text/html'
       }
-    }
-    }
-  }
