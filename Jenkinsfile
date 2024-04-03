@@ -27,7 +27,6 @@ pipeline {
             }
             steps {
                 echo 'Deploying the application'
-                unstash 'Jenkins_CI_CD'
                 sh "sudo rm -rf ~/apache*/webapp/*.war"
                 sh "sudo mv target/*.war ~/apache*/webapps/"
                 sh "sudo systemctl daemon-reload"
@@ -47,5 +46,7 @@ pipeline {
             body: "Jenkins CI-CD failed, please investigate"
         }
     }
-}        
+}
+
+       
      
