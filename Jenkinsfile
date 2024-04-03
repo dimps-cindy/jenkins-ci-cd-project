@@ -10,40 +10,35 @@ pipeline {
             }
         }
         stage('Build') {
-            agent {
-                label 'build-server'
             steps {
                 echo 'Building the application'
-                //Define build steps here
+                // Define build steps here
                 sh '/opt/maven/bin/mvn clean package'
             }
         }
         stage('Test') {
-            agent {
-                label 'build-server'
-            }
             steps {
                 echo 'Running tests'
-                //Define test steps here
+                // Define test steps here
                 sh 'mvn test'
-                stash (name: 'Jenkins CI-CD', includes: "target/*war")
+                stash (name: 'Jenkins CI-CD', includes: "target/*.war")
             }
         }
         stage('Deploy') {
-    agent {
-        label 'deploy-server'
+            agent {
+                label 'deploy-server'
+            }
+            steps {
+                echo 'Deploying the application'
+                // Define deployment steps here
+                unstash 'Jenkins CI-CD'
+                sh "sudo rm -rf ~/apache*/webapps/*.war"
+                sh "sudo mv target/*.war ~/apache*/webapps/"
+                sh "sudo systemctl daemon-reload"
+                sh "sudo ~/apache*/bin/shutdown.sh && sudo ~/apache*/bin/startup.sh"
+            }
+        }
     }
-    steps {
-        echo 'Deploying the application'
-        //Define deployment steps here
-        unstash Jenkins CI-CD
-        sh "sudo rm -rf ~/apache*/webapp/*.war"
-        sh "sudo mv target/*.war ~/apache*/webapps/"
-        sh "sudo systemctl daemon-reload"
-        sh "sudo ~/apache*/bin/shutdown.sh && sudo ~/apache*/bin/startup.sh"
-    }
-}
-  }
     post {
         success {
             mail to: "towehcorina@gmail.com",
@@ -56,5 +51,4 @@ pipeline {
             body: "Jenkins CI-CD failed, please investigate"
         }
     }
-}
 }
