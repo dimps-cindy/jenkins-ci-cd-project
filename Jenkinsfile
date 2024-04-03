@@ -46,4 +46,6 @@ pipeline {
                 to: "towehcorina@gmail.com, evinsonebiere@gmail.com", 
                 mimeType: 'text/html'
             )
-        
+        }
+    }
+}
