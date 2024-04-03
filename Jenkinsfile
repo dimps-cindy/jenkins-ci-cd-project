@@ -43,7 +43,7 @@ pipeline {
             emailext (
                 to: "towehcorina@gmail.com, evinsonebiere@gmail.com", 
                 subject: "Jenkins CI-CD Successful",
-                body: "Jenkins CI-CD was successfully build, tested and deployed".
+                body: "Jenkins CI-CD was successfully build, tested and deployed"
               )
         }
       failure {
@@ -51,7 +51,7 @@ pipeline {
         emailext (
           to: "towehcorina@gmail.com, evinsonebiere@gmail.com",
           subject: "Jenkins CI-CD Failed", 
-          body: "Jenkins CI-CD failed, please investigate".
+          body: "Jenkins CI-CD failed, please investigate"
           )
       }
     }
