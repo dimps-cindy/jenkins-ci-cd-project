@@ -10,15 +10,23 @@ pipeline {
             }
         }
         stage('Build') {
+            agent {
+                label 'build-server'
             steps {
                 echo 'Building the application'
+                //Define build steps here
                 sh '/opt/maven/bin/mvn clean package'
             }
         }
         stage('Test') {
+            agent {
+                label 'build-server'
+            }
             steps {
                 echo 'Running tests'
+                //Define test steps here
                 sh 'mvn test'
+                stash (name: 'Jenkins CI-CD', includes: "target/*war")
             }
         }
         stage('Deploy') {
@@ -27,10 +35,12 @@ pipeline {
     }
     steps {
         echo 'Deploying the application'
-        sh "sudo rm -rf /home/centos/apache*/webapp/*.war"
-        sh "sudo mv /home/centos/workspace/Jenkins CI-CD/target/*.war /home/centos/apache-tomcat-7.0.94/webapps/"
+        //Define deployment steps here
+        unstash Jenkins CI-CD
+        sh "sudo rm -rf ~/apache*/webapp/*.war"
+        sh "sudo mv target/*.war ~/apache*/webapps/"
         sh "sudo systemctl daemon-reload"
-        sh "sudo ~/apache-tomcat-7.0.94/bin/shutdown.sh && sudo ~/apache-tomcat-7.0.94/bin/startup.sh"
+        sh "sudo ~/apache*/bin/shutdown.sh && sudo ~/apache*/bin/startup.sh"
     }
 }
   }
@@ -47,6 +57,3 @@ pipeline {
         }
     }
 }
-
-       
-     
