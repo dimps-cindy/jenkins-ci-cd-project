@@ -41,7 +41,7 @@ pipeline {
         success {
             // If the pipeline runs successfully, notify stakeholders
             emailext (
-                to: "towehcorina@gmail.com, evinsonebiere@gmail.com", 
+                to: "towehcorina@gmail.com", 
                 subject: "Jenkins CI-CD Successful",
                 body: "Jenkins CI-CD was successfully build, tested and deployed"
               )
@@ -49,7 +49,7 @@ pipeline {
       failure {
         // If the pipeline fails, send a notification
         emailext (
-          to: "towehcorina@gmail.com, evinsonebiere@gmail.com",
+          to: "towehcorina@gmail.com",
           subject: "Jenkins CI-CD Failed", 
           body: "Jenkins CI-CD failed, please investigate"
           )
