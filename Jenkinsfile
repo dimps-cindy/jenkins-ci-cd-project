@@ -38,14 +38,21 @@ pipeline {
         }
     }
     post {
-        always {
-            // Send email notification on completion
+        success {
+            // If the pipeline runs successfully, notify stakeholders
             emailext (
-                body: "Check console output at $BUILD_URL to see results,",           
-                subject: "Jenkins Build ${currentBuild.currentResult} Jenkins CI-CD",
                 to: "towehcorina@gmail.com, evinsonebiere@gmail.com", 
-                mimeType: 'text/html'
-            )
+                subject: "Jenkins CI-CD Successful",
+                body: "Jenkins CI-CD was successfully build, tested and deployed".
+              )
         }
+      failure {
+        // If the pipeline fails, send a notification
+        emailext (
+          to: "towehcorina@gmail.com, evinsonebiere@gmail.com",
+          subject: "Jenkins CI-CD Failed", 
+          body: "Jenkins CI-CD failed, please investigate".
+          )
+      }
     }
 }
