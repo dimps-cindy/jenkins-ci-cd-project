@@ -41,12 +41,12 @@ pipeline {
     }
     post {
         success {
-            mail to: "towehcorina@gmail.com",
+            mail to: "towehcorina@gmail.com, evinsonebiere@gmail.com",
             subject: "Jenkins CI-CD Successful",
             body: "Jenkins CI-CD was successfully built, tested, and deployed"
         }
         failure {
-            mail to: "towehcorina@gmail.com",
+            mail to: "towehcorina@gmail.com, evinsonebiere@gmail.com",
             subject: "Jenkins CI-CD Failed",
             body: "Jenkins CI-CD failed, please investigate"
         }
