@@ -22,18 +22,18 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent {
-                label 'deploy-server'
-            }
-            steps {
-                echo 'Deploying the application'
-                sh "sudo rm -rf ~/apache*/webapp/*.war"
-                sh "sudo mv target/*.war ~/apache*/webapps/"
-                sh "sudo systemctl daemon-reload"
-                sh "sudo ~/apache-tomcat-7.0.94/bin/shutdown.sh && sudo ~/apache-tomcat-7.0.94/bin/startup.sh"
-            }
-        }
+    agent {
+        label 'deploy-server'
     }
+    steps {
+        echo 'Deploying the application'
+        sh "sudo rm -rf /home/centos/apache*/webapp/*.war"
+        sh "sudo mv /home/centos/workspace/Jenkins CI-CD/target/*.war /home/centos/apache-tomcat-7.0.94/webapps/"
+        sh "sudo systemctl daemon-reload"
+        sh "sudo ~/apache-tomcat-7.0.94/bin/shutdown.sh && sudo ~/apache-tomcat-7.0.94/bin/startup.sh"
+    }
+}
+  }
     post {
         success {
             mail to: "towehcorina@gmail.com",
