@@ -52,6 +52,3 @@ pipeline {
                subject: "Jenkins CI-CD Failed", 
                body: "Jenkins CI-CD failed, please investigate"
         }
-      }
-   }
-      
