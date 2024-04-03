@@ -34,25 +34,23 @@ pipeline {
         sh "sudo mv target/*.war ~/apache*/webapps/"
         sh "sudo systemctl daemon-reload"
         sh "sudo ~/apache-tomcat-7.0.94/bin/shutdown.sh && sudo ~/apache-tomcat-7.0.94/bin/startup.sh"
-        }
-        }
-    }
-    post {
-        success {
-            // If the pipeline runs successfully, notify stakeholders
-            emailext (
-                to: "towehcorina@gmail.com", 
-                subject: "Jenkins CI-CD Successful",
-                body: "Jenkins CI-CD was successfully build, tested and deployed"
-              )
-        }
-      failure {
-        // If the pipeline fails, send a notification
-        emailext (
-          to: "towehcorina@gmail.com",
-          subject: "Jenkins CI-CD Failed", 
-          body: "Jenkins CI-CD failed, please investigate"
-          )
       }
     }
-}
+  }
+    post {
+        success {
+          script {
+            // If the pipeline runs successfully, notify stakeholders
+            mail to: "towehcorina@gmail.com", 
+                 subject: "Jenkins CI-CD Successful",
+                 body: "Jenkins CI-CD was successfully build, tested and deployed"
+              }
+      failure {
+        script {
+        // If the pipeline fails, send a notification
+          mail to: "towehcorina@gmail.com",
+               subject: "Jenkins CI-CD Failed", 
+               body: "Jenkins CI-CD failed, please investigate"
+        }
+      }
+   }
