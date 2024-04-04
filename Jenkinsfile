@@ -40,7 +40,7 @@ pipeline {
  post {
         always {
             // Send email notification on completion
-            emailext (
+            emailtext (
                 body: "Check console output at $BUILD_URL to see results,",           
                 subject: "Jenkins Build ${currentBuild.currentResult} jenkins-ci-cd-project",
                 to: "sam883marc@gmail.com, cynthianukege@gmail.com", 
