@@ -7,7 +7,7 @@ pipeline {
             }
             steps {
                 echo 'Building the application'
-                sh '/opt/apache-maven-3.9.6/bin/mvn clean package'
+                sh '/home/centos/apache-maven-3.9.6/bin/mvn clean package'
             }
         }
         stage('Test') {
@@ -16,7 +16,7 @@ pipeline {
             }
             steps {
                 echo 'Running tests'
-                sh '/opt/apache-maven-3.9.6/bin/mvn test'
+                sh '/home/centos/apache-maven-3.9.6/bin/mvn test'
                 stash(name: 'jenkins-ci-cd-project', includes: "target/*.war")
             }
         }
