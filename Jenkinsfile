@@ -12,11 +12,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application'
-                // Define build steps here
-                sh '/opt/maven/bin/mvn clean package'
+                // Correct the path to Maven
+                sh '/opt/apache-maven-3.9.6/bin/mvn clean package'
             }
         }
         stage('Test') {
+            agent {
+                label 'node1'
+            }
             steps {
                 echo 'Running tests'
                 // Define test steps here
@@ -30,7 +33,7 @@ pipeline {
             }
             steps {
                 echo 'Deploying the application'
-                // Define deployment steps here
+                // Retrieve stashed artifacts
                 unstash 'jenkins-ci-cd-project'
                 sh "sudo rm -rf ~/apache*/webapps/*.war"
                 sh "sudo mv target/*.war ~/apache*/webapps/"
