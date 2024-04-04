@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'build-server'
+        label 'node1'
     }
     stages {
         stage('Checkout') {
@@ -21,17 +21,17 @@ pipeline {
                 echo 'Running tests'
                 // Define test steps here
                 sh 'mvn test'
-                stash (name: 'Jenkins CI-CD', includes: "target/*.war")
+                stash (name: 'jenkins-ci-cd-project', includes: "target/*.war")
             }
         }
         stage('Deploy') {
             agent {
-                label 'deploy-server'
+                label 'node2'
             }
             steps {
                 echo 'Deploying the application'
                 // Define deployment steps here
-                unstash 'Jenkins CI-CD'
+                unstash 'jenkins-ci-cd-project'
                 sh "sudo rm -rf ~/apache*/webapps/*.war"
                 sh "sudo mv target/*.war ~/apache*/webapps/"
                 sh "sudo systemctl daemon-reload"
@@ -41,14 +41,14 @@ pipeline {
     }
     post {
         success {
-            mail to: "towehcorina@gmail.com, evinsonebiere@gmail.com",
-            subject: "Jenkins CI-CD Successful",
-            body: "Jenkins CI-CD was successfully built, tested, and deployed"
+            mail to: "cynthianukege@gmail.com, sam883marc@gmail.com",
+            subject: "jenkins-ci-cd-project Successful",
+            body: "jenkins-ci-cd-project was successfully built, tested, and deployed"
         }
         failure {
-            mail to: "towehcorina@gmail.com, evinsonebiere@gmail.com",
-            subject: "Jenkins CI-CD Failed",
-            body: "Jenkins CI-CD failed, please investigate"
+            mail to: "cynthianukege@gmail.com, sam883marc@gmail.com",
+            subject: "jenkins-ci-cd-project Failed",
+            body: "jenkins-ci-cd-project failed, please investigate"
         }
     }
 }
